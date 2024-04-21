@@ -165,9 +165,11 @@ mount_stowaways() {
 	mkdir /target
 
 	mount $DATA_PARTITION /data
-	mount --bind /data/${data_subdir}/.stowaways/${DEFAULT_OS} /target
-	mkdir /target/data # in new fs
-	mount --bind /data/${data_subdir} /target/data
+	mount --bind /data/${data_subdir}/.stowaways/${DEFAULT_OS} /target	
+  mkdir /target/data_android
+	mount --bind /data/${data_subdir} /target/data_android
+  mkdir -p /target/data/.stowaways # in new fs
+  mount --bind /target/data_android/.stowaways /target/data/.stowaways
     else
         echo "Failed to mount /target, device node '$DATA_PARTITION' not found!" >> /diagnosis.log
     fi
